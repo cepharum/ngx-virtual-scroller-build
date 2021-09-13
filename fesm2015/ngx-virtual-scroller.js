@@ -441,7 +441,13 @@ let VirtualScrollerComponent = class VirtualScrollerComponent {
                 if (scrollLengthDelta > 0 && this.viewPortItems) {
                     const offset = this.previousViewPort.startIndex - this.previousViewPort.startIndexWithBuffer;
                     const oldStartItem = oldViewPortItems[offset];
-                    const oldStartItemIndex = this.items.findIndex(x => this.compareItems(oldStartItem, x));
+                    let oldStartItemIndex = -1;
+                    for (let i = 0, l = this.items, n = this.items.length; i < n; i++) {
+                        if (this.compareItems(oldStartItem, l[i])) {
+                            oldStartItemIndex = i;
+                            break;
+                        }
+                    }
                     if (oldStartItemIndex > this.previousViewPort.startIndex) {
                         let itemOrderChanged = false;
                         for (let i = 1, l = this.viewPortItems.length - offset; i < l; ++i) {

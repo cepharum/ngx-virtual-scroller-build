@@ -728,8 +728,14 @@
                     var scrollLengthDelta = _this_1.previousViewPort.scrollLength - oldViewPort_1.scrollLength;
                     if (scrollLengthDelta > 0 && _this_1.viewPortItems) {
                         var offset = _this_1.previousViewPort.startIndex - _this_1.previousViewPort.startIndexWithBuffer;
-                        var oldStartItem_1 = oldViewPortItems_1[offset];
-                        var oldStartItemIndex = _this_1.items.findIndex(function (x) { return _this_1.compareItems(oldStartItem_1, x); });
+                        var oldStartItem = oldViewPortItems_1[offset];
+                        var oldStartItemIndex = -1;
+                        for (var i = 0, l = _this_1.items, n = _this_1.items.length; i < n; i++) {
+                            if (_this_1.compareItems(oldStartItem, l[i])) {
+                                oldStartItemIndex = i;
+                                break;
+                            }
+                        }
                         if (oldStartItemIndex > _this_1.previousViewPort.startIndex) {
                             var itemOrderChanged = false;
                             for (var i = 1, l = _this_1.viewPortItems.length - offset; i < l; ++i) {
